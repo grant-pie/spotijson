@@ -1,16 +1,19 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useSpotifyAuth } from '@/composables/useSpotifyAuth'
 
-const route = useRoute()
 const router = useRouter()
 const { handleCallback } = useSpotifyAuth()
 
 const errorMessage = ref(null)
 
 onMounted(async () => {
-  const result = await handleCallback(route.query)
+  // With hash routing, Spotify appends params before the '#', e.g:
+  // /spotijson/?code=...&state=...#/callback
+  // route.query is empty in this case — read from window.location.search instead.
+  const params = Object.fromEntries(new URLSearchParams(window.location.search))
+  const result = await handleCallback(params)
 
   if (result.success) {
     router.replace({ name: 'playlists' })
