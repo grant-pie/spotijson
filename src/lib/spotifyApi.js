@@ -50,7 +50,10 @@ async function fetchAllPages(firstEndpoint, token) {
  * Returns an array of simplified playlist objects.
  */
 export async function getUserPlaylists(token) {
-  const raw = await fetchAllPages('/me/playlists?limit=50', token)
+  const raw = await fetchAllPages(
+    '/me/playlists?limit=50&fields=next,total,items(id,name,description,public,collaborative,images,tracks(total),owner(id,display_name),external_urls(spotify))',
+    token,
+  )
   return raw.map(mapPlaylist)
 }
 
@@ -60,7 +63,7 @@ export async function getUserPlaylists(token) {
  */
 export async function getPlaylistTracks(playlistId, token) {
   const raw = await fetchAllPages(
-    `/playlists/${playlistId}/tracks?limit=100&fields=next,items(added_at,added_by.id,track(id,name,duration_ms,explicit,popularity,preview_url,track_number,external_ids,artists(id,name,genres,popularity,followers),album(id,name,release_date,total_tracks,album_type,images)))`,
+    `/playlists/${playlistId}/tracks?limit=100&fields=next,items(added_at,added_by.id,track(id,name,duration_ms,explicit,popularity,preview_url,track_number,external_ids(isrc),artists(id,name),album(id,name,release_date,total_tracks,album_type,images)))`,
     token,
   )
   return raw.filter((item) => item.track && item.track.id).map(mapTrack)
@@ -104,9 +107,6 @@ function mapArtist(a) {
   return {
     id: a.id,
     name: a.name,
-    genres: a.genres ?? [],
-    popularity: a.popularity ?? null,
-    followers: a.followers?.total ?? null,
   }
 }
 

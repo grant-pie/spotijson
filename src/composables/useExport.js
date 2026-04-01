@@ -21,9 +21,6 @@ export const FIELD_GROUPS = [
     fields: [
       { key: 'name', label: 'Name', default: true },
       { key: 'id', label: 'ID', default: false },
-      { key: 'genres', label: 'Genres', default: false },
-      { key: 'popularity', label: 'Popularity', default: false },
-      { key: 'followers', label: 'Followers', default: false },
     ],
   },
   {
