@@ -23,7 +23,8 @@ async function request(endpoint, token, retries = 0) {
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}))
-    throw new Error(body.error?.message ?? body.error?.reason ?? `Spotify API error ${response.status}`)
+    const reason = body.error?.reason ? ` (${body.error.reason})` : ''
+    throw new Error(`${response.status}${reason}: ${body.error?.message ?? response.statusText}`)
   }
 
   return response.json()
