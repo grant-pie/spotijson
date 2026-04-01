@@ -39,7 +39,7 @@ jobs:
         env:
           VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
           VITE_SPOTIFY_REDIRECT_URI: ${{ secrets.VITE_SPOTIFY_REDIRECT_URI }}
-          BASE_URL: /spotify-playlist-to-json/
+          BASE_URL: /${{ github.event.repository.name }}/
 
       - uses: actions/configure-pages@v4
 
