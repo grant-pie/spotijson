@@ -27,6 +27,7 @@ export function useSpotifyAuth() {
       state,
       code_challenge_method: 'S256',
       code_challenge: challenge,
+      show_dialog: 'true',
     })
 
     window.location.href = `${SPOTIFY_AUTH_URL}?${params}`
