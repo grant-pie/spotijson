@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* JSON syntax highlight colours */
+.json-key     { color: #c084fc; } /* purple */
+.json-string  { color: #86efac; } /* green  */
+.json-number  { color: #93c5fd; } /* blue   */
+.json-bool    { color: #fde68a; } /* yellow */
+.json-null    { color: #f87171; } /* red    */
