@@ -63,7 +63,7 @@ export async function getUserPlaylists(token) {
  */
 export async function getPlaylistTracks(playlistId, token) {
   const raw = await fetchAllPages(
-    `/playlists/${playlistId}/tracks?limit=100&fields=next,items(added_at,added_by.id,track(id,name,duration_ms,explicit,popularity,preview_url,track_number,external_ids(isrc),artists(id,name),album(id,name,release_date,total_tracks,album_type,images)))`,
+    `/playlists/${playlistId}/tracks?limit=100`,
     token,
   )
   return raw.filter((item) => item.track && item.track.id).map(mapTrack)
