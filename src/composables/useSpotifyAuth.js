@@ -79,6 +79,9 @@ export function useSpotifyAuth() {
 
     const data = await response.json()
     auth.setToken(data.access_token, data.expires_in)
+    if (data.refresh_token) {
+      auth.setRefreshToken(data.refresh_token)
+    }
 
     const meRes = await fetch('https://api.spotify.com/v1/me', {
       headers: { Authorization: `Bearer ${data.access_token}` },
@@ -91,10 +94,35 @@ export function useSpotifyAuth() {
     return { success: true }
   }
 
+  async function refreshAccessToken() {
+    if (!auth.refreshToken) return false
+
+    const body = new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: auth.refreshToken,
+      client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
+    })
+
+    const response = await fetch(SPOTIFY_TOKEN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    })
+
+    if (!response.ok) return false
+
+    const data = await response.json()
+    auth.setToken(data.access_token, data.expires_in)
+    if (data.refresh_token) {
+      auth.setRefreshToken(data.refresh_token)
+    }
+    return true
+  }
+
   function logout() {
     auth.clearToken()
     router.push({ name: 'login' })
   }
 
-  return { login, handleCallback, logout }
+  return { login, handleCallback, logout, refreshAccessToken }
 }

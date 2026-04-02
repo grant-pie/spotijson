@@ -6,12 +6,21 @@ import { getUserPlaylists, getPlaylistTracks, AuthError } from '@/lib/spotifyApi
 export function useSpotifyApi() {
   const auth = useAuthStore()
   const playlists = usePlaylistsStore()
-  const { logout } = useSpotifyAuth()
+  const { logout, refreshAccessToken } = useSpotifyAuth()
+
+  async function ensureFreshToken() {
+    if (auth.isExpired && auth.refreshToken) {
+      const ok = await refreshAccessToken()
+      if (!ok) { logout(); return false }
+    }
+    return true
+  }
 
   async function fetchPlaylists() {
     playlists.setLoading(true)
     playlists.setError(null)
     try {
+      if (!await ensureFreshToken()) return
       const data = await getUserPlaylists(auth.accessToken)
       playlists.setPlaylists(data)
     } catch (err) {
@@ -26,6 +35,7 @@ export function useSpotifyApi() {
     playlists.setLoading(true)
     playlists.setError(null)
     try {
+      if (!await ensureFreshToken()) return
       const data = await getPlaylistTracks(playlistId, auth.accessToken)
       playlists.setTracks(data)
     } catch (err) {
