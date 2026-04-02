@@ -21,7 +21,6 @@ onMounted(() => {
       <!-- Logo mark -->
       <div class="flex items-center justify-center gap-3">
         <img src="/logo.png" alt="Playlist Exporter" class="w-48 object-contain" />
-        <h1 class="text-white text-2xl font-bold tracking-tight">Playlist Exporter</h1>
       </div>
 
       <!-- Card -->

@@ -45,7 +45,6 @@ onMounted(() => {
       <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
         <div class="flex items-center gap-2 shrink-0">
           <img src="/logo.png" alt="Playlist Exporter" class="w-48 object-contain" />
-          <span class="font-semibold text-sm">Playlist Exporter</span>
         </div>
 
         <!-- Search -->
