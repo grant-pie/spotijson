@@ -7,10 +7,64 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotiJSON</title>
+    <title>SpotiJSON – Export Spotify Playlists to JSON</title>
+    <meta name="description" content="Connect your Spotify account and export your playlists as JSON. Choose exactly which track, artist, and album fields to include and download a clean JSON file.">
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Discord) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://grant-pie.github.io/spotijson/">
+    <meta property="og:title" content="SpotiJSON – Export Spotify Playlists to JSON">
+    <meta property="og:description" content="Connect your Spotify account and export your playlists as JSON. Choose exactly which track, artist, and album fields to include and download a clean JSON file.">
+    <meta property="og:image" content="https://grant-pie.github.io/spotijson/og-image.png">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SpotiJSON – Export Spotify Playlists to JSON">
+    <meta name="twitter:description" content="Connect your Spotify account and export your playlists as JSON. Choose exactly which track, artist, and album fields to include and download a clean JSON file.">
+    <meta name="twitter:image" content="https://grant-pie.github.io/spotijson/og-image.png">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <main>
+        <h1>SpotiJSON – Export Spotify Playlists to JSON</h1>
+        <p>
+          SpotiJSON is a free, browser-based tool that lets you export your Spotify playlists as
+          structured JSON files. Connect your Spotify account using secure OAuth authentication and
+          browse every playlist you own. Select exactly which data fields you want to include, then
+          download a clean, ready-to-use JSON file in seconds.
+        </p>
+        <h2>What you can export</h2>
+        <p>
+          For each track in a playlist you can choose to include the track name, Spotify track ID,
+          duration in milliseconds, explicit flag, track number, and the date the track was added.
+          For each artist you can export the artist name and Spotify artist ID. For each album you
+          can include the album name, Spotify album ID, release date, total track count, album type,
+          and album artwork images. Every field is optional — pick only what you need for your
+          project.
+        </p>
+        <h2>How it works</h2>
+        <p>
+          SpotiJSON uses the Spotify Web API with the PKCE authorization flow, which means your
+          Spotify credentials are never sent to any server. Authentication happens directly between
+          your browser and Spotify. Once you are logged in, your playlists are fetched from the
+          Spotify API and displayed in a searchable grid. Click any playlist to open the export
+          view, configure your fields, preview the JSON output with syntax highlighting, and
+          download the file.
+        </p>
+        <h2>Who is it for</h2>
+        <p>
+          SpotiJSON is useful for developers who want to work with their music data, analysts who
+          want to explore listening habits, DJs who want to archive setlists, or anyone who wants a
+          portable backup of their playlist metadata. The exported JSON can be imported into
+          spreadsheets, databases, or custom applications without any additional processing.
+        </p>
+        <p>
+          The app requires only read-only access to your Spotify library and never modifies your
+          playlists or account data. No data is stored on any server — everything stays in your
+          browser session.
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
