@@ -2,22 +2,29 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePlaylistsStore } from '@/stores/playlists'
+import { useAuthStore } from '@/stores/auth'
 import { useSpotifyApi } from '@/composables/useSpotifyApi'
 import { useSpotifyAuth } from '@/composables/useSpotifyAuth'
 import PlaylistCard from '@/components/PlaylistCard.vue'
 
 const router = useRouter()
 const playlistsStore = usePlaylistsStore()
+const authStore = useAuthStore()
 const { fetchPlaylists } = useSpotifyApi()
 const { logout } = useSpotifyAuth()
 
 const search = ref('')
 
 const filtered = computed(() => {
+  let list = playlistsStore.playlists.filter((p) => p.owner.id === authStore.userId)
   const q = search.value.trim().toLowerCase()
-  if (!q) return playlistsStore.playlists
-  return playlistsStore.playlists.filter((p) => p.name.toLowerCase().includes(q))
+  if (q) list = list.filter((p) => p.name.toLowerCase().includes(q))
+  return list
 })
+
+const ownedCount = computed(() =>
+  playlistsStore.playlists.filter((p) => p.owner.id === authStore.userId).length,
+)
 
 function selectPlaylist(playlist) {
   playlistsStore.selectPlaylist(playlist)
@@ -103,11 +110,11 @@ onMounted(() => {
       <!-- Playlist grid -->
       <template v-else>
         <p class="text-zinc-500 text-sm mb-6">
-          <template v-if="search && filtered.length !== playlistsStore.playlists.length">
-            {{ filtered.length }} of {{ playlistsStore.playlists.length }} playlists
+          <template v-if="search && filtered.length !== ownedCount">
+            {{ filtered.length }} of {{ ownedCount }} playlists
           </template>
           <template v-else>
-            {{ playlistsStore.playlists.length }} playlists
+            {{ ownedCount }} playlists
           </template>
         </p>
 

@@ -80,6 +80,14 @@ export function useSpotifyAuth() {
     const data = await response.json()
     auth.setToken(data.access_token, data.expires_in)
 
+    const meRes = await fetch('https://api.spotify.com/v1/me', {
+      headers: { Authorization: `Bearer ${data.access_token}` },
+    })
+    if (meRes.ok) {
+      const me = await meRes.json()
+      auth.setUserId(me.id)
+    }
+
     return { success: true }
   }
 
