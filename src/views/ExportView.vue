@@ -96,7 +96,7 @@ async function handleCopy() {
   <div v-if="playlist" class="min-h-screen bg-black text-white flex flex-col">
 
     <!-- Header -->
-    <header class="sticky top-0 z-10 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
+    <header class="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-4">
         <button
           class="text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0"
