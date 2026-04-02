@@ -60,14 +60,23 @@ export async function getUserPlaylists(token) {
 
 /**
  * Fetch all tracks for a given playlist.
- * Returns an array of track objects.
+ * Uses GET /playlists/{id} (which embeds tracks) instead of the dedicated
+ * /playlists/{id}/tracks endpoint, which is restricted in Spotify development mode.
  */
 export async function getPlaylistTracks(playlistId, token) {
-  const raw = await fetchAllPages(
-    `/playlists/${playlistId}/tracks?limit=100`,
-    token,
-  )
-  return raw.filter((item) => item.track && item.track.id).map(mapTrack)
+  const playlist = await request(`/playlists/${playlistId}`, token)
+  const items = [...playlist.tracks.items]
+
+  // Paginate if the playlist has more than 100 tracks
+  let nextUrl = playlist.tracks.next
+  while (nextUrl) {
+    const path = nextUrl.replace(BASE, '')
+    const page = await request(path, token)
+    items.push(...page.items)
+    nextUrl = page.next
+  }
+
+  return items.filter((item) => item.track && item.track.id).map(mapTrack)
 }
 
 // ─── Mappers ────────────────────────────────────────────────────────────────
@@ -79,7 +88,7 @@ function mapPlaylist(p) {
     description: p.description,
     public: p.public,
     collaborative: p.collaborative,
-    trackCount: p.tracks?.total ?? 0,
+    trackCount: p.tracks?.total ?? p.tracks?.items?.length ?? 0,
     owner: { id: p.owner?.id, displayName: p.owner?.display_name },
     images: p.images ?? [],
     externalUrl: p.external_urls?.spotify ?? null,
