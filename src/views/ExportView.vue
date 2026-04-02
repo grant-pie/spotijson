@@ -97,7 +97,7 @@ async function handleCopy() {
 
     <!-- Header -->
     <header class="sticky top-0 z-10 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
-      <div class="max-w-7xl mx-auto flex items-center gap-4">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-4">
         <button
           class="text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0"
           @click="router.push({ name: 'playlists' })"
@@ -122,10 +122,10 @@ async function handleCopy() {
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2 w-full md:w-auto">
           <!-- Fields toggle — mobile only -->
           <button
-            class="md:hidden flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
+            class="md:hidden flex items-center justify-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
             @click="drawerOpen = true"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ async function handleCopy() {
             Fields
           </button>
           <button
-            class="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
+            class="flex items-center justify-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
             :disabled="!payload"
             @click="handleCopy"
           >
@@ -146,7 +146,7 @@ async function handleCopy() {
           </button>
 
           <button
-            class="flex items-center gap-2 bg-[#1DB954] hover:bg-[#1ed760] text-black text-sm font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            class="flex items-center justify-center gap-2 bg-[#1DB954] hover:bg-[#1ed760] text-black text-sm font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="!payload"
             @click="handleDownload"
           >
