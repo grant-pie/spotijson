@@ -50,6 +50,11 @@ async function fetchAllPages(firstEndpoint, token) {
  * Fetch all playlists for the current user.
  * Returns an array of simplified playlist objects.
  */
+export async function getPlaylist(playlistId, token) {
+  const raw = await request(`/playlists/${playlistId}`, token)
+  return mapPlaylist(raw)
+}
+
 export async function getUserPlaylists(token) {
   const raw = await fetchAllPages('/me/playlists?limit=50', token)
   return raw.map(mapPlaylist)

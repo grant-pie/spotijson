@@ -15,7 +15,7 @@ import {
 const route = useRoute()
 const router = useRouter()
 const playlistsStore = usePlaylistsStore()
-const { fetchTracks } = useSpotifyApi()
+const { fetchPlaylist, fetchTracks } = useSpotifyApi()
 
 const copied = ref(false)
 const drawerOpen = ref(false)
@@ -51,12 +51,13 @@ function toggleAll(group) {
 const playlist = computed(() => playlistsStore.selectedPlaylist)
 
 onMounted(async () => {
+  const playlistId = route.params.playlistId
   if (!playlist.value) {
-    router.replace({ name: 'playlists' })
-    return
+    const result = await fetchPlaylist(playlistId)
+    if (!result) return
   }
   if (!playlistsStore.tracks.length) {
-    await fetchTracks(route.params.playlistId)
+    await fetchTracks(playlistId)
   }
 })
 

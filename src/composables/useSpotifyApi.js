@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/stores/auth'
 import { usePlaylistsStore } from '@/stores/playlists'
 import { useSpotifyAuth } from '@/composables/useSpotifyAuth'
-import { getUserPlaylists, getPlaylistTracks, AuthError } from '@/lib/spotifyApi'
+import { getPlaylist, getUserPlaylists, getPlaylistTracks, AuthError } from '@/lib/spotifyApi'
 
 export function useSpotifyApi() {
   const auth = useAuthStore()
@@ -14,6 +14,19 @@ export function useSpotifyApi() {
       if (!ok) { logout(); return false }
     }
     return true
+  }
+
+  async function fetchPlaylist(playlistId) {
+    try {
+      if (!await ensureFreshToken()) return null
+      const data = await getPlaylist(playlistId, auth.accessToken)
+      playlists.selectPlaylist(data)
+      return data
+    } catch (err) {
+      if (err instanceof AuthError) { logout(); return null }
+      playlists.setError(err.message)
+      return null
+    }
   }
 
   async function fetchPlaylists() {
@@ -46,5 +59,5 @@ export function useSpotifyApi() {
     }
   }
 
-  return { fetchPlaylists, fetchTracks }
+  return { fetchPlaylist, fetchPlaylists, fetchTracks }
 }
