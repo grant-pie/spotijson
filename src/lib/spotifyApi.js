@@ -51,10 +51,7 @@ async function fetchAllPages(firstEndpoint, token) {
  * Returns an array of simplified playlist objects.
  */
 export async function getUserPlaylists(token) {
-  const raw = await fetchAllPages(
-    '/me/playlists?limit=50&fields=next,total,items(id,name,description,public,collaborative,images,tracks(total),owner(id,display_name),external_urls(spotify))',
-    token,
-  )
+  const raw = await fetchAllPages('/me/playlists?limit=50', token)
   return raw.map(mapPlaylist)
 }
 
@@ -79,7 +76,9 @@ export async function getPlaylistTracks(playlistId, token) {
     nextUrl = page.next
   }
 
-  return items.filter((item) => item.track && item.track.id).map(mapTrack)
+  return items
+    .filter((item) => (item.track?.id ?? item.id))
+    .map(mapTrack)
 }
 
 // ─── Mappers ────────────────────────────────────────────────────────────────
@@ -99,9 +98,11 @@ function mapPlaylist(p) {
 }
 
 function mapTrack(item) {
-  const t = item.track
+  // Spotify returns either a PlaylistTrackObject { track, added_at, added_by }
+  // or a plain TrackObject depending on the endpoint / API configuration.
+  const t = item.track ?? item
   return {
-    addedAt: item.added_at,
+    addedAt: item.added_at ?? null,
     addedBy: item.added_by?.id ?? null,
     id: t.id,
     name: t.name,
