@@ -20,7 +20,7 @@ onMounted(() => {
     <div class="max-w-md w-full text-center space-y-8">
       <!-- Logo mark -->
       <div class="flex items-center justify-center gap-3">
-        <img src="/logo.png" alt="Playlist Exporter" class="w-3 h-3 object-contain" />
+        <img src="/logo.png" alt="Playlist Exporter" class="w-48 object-contain" />
         <h1 class="text-white text-2xl font-bold tracking-tight">Playlist Exporter</h1>
       </div>
 

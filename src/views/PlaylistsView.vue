@@ -44,7 +44,7 @@ onMounted(() => {
     <header class="sticky top-0 z-10 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
       <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
         <div class="flex items-center gap-2 shrink-0">
-          <img src="/logo.png" alt="Playlist Exporter" class="w-3 h-3 object-contain" />
+          <img src="/logo.png" alt="Playlist Exporter" class="w-48 object-contain" />
           <span class="font-semibold text-sm">Playlist Exporter</span>
         </div>
 
