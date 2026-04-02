@@ -77,7 +77,7 @@ export async function getPlaylistTracks(playlistId, token) {
   }
 
   return items
-    .filter((item) => (item.track?.id ?? item.id))
+    .filter((item) => (item.track?.id ?? item.item?.id ?? item.id))
     .map(mapTrack)
 }
 
@@ -98,9 +98,9 @@ function mapPlaylist(p) {
 }
 
 function mapTrack(item) {
-  // Spotify returns either a PlaylistTrackObject { track, added_at, added_by }
-  // or a plain TrackObject depending on the endpoint / API configuration.
-  const t = item.track ?? item
+  // Spotify returns the track under 'track', 'item', or as the object itself
+  // depending on the endpoint / API version / region.
+  const t = item.track ?? item.item ?? item
   return {
     addedAt: item.added_at ?? null,
     addedBy: item.added_by?.id ?? null,
