@@ -42,13 +42,13 @@ onMounted(() => {
   <div class="min-h-screen bg-black text-white">
     <!-- Header -->
     <header class="sticky top-0 z-10 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
-      <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
-        <div class="flex items-center gap-2 shrink-0">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center gap-4">
+        <div class="flex items-center gap-2 shrink-0 flex-1">
           <RouterLink to="/"><img src="/logo.png" alt="SpotiJSON" class="w-48 object-contain" /></RouterLink>
         </div>
 
-        <!-- Search -->
-        <div class="relative flex-1 max-w-sm">
+        <!-- Search — inline on md+, full-width row on mobile -->
+        <div class="relative w-full md:flex-1 md:max-w-sm order-last md:order-none">
           <svg
             class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500"
             fill="none"
