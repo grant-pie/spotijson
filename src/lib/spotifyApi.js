@@ -65,10 +65,13 @@ export async function getUserPlaylists(token) {
  */
 export async function getPlaylistTracks(playlistId, token) {
   const playlist = await request(`/playlists/${playlistId}`, token)
-  const items = [...playlist.tracks.items]
+  // Spotify returns the tracks paging object under 'tracks' in the standard API,
+  // but under 'items' in some configurations/regions.
+  const page = playlist.tracks ?? playlist.items
+  const items = [...page.items]
 
   // Paginate if the playlist has more than 100 tracks
-  let nextUrl = playlist.tracks.next
+  let nextUrl = page.next
   while (nextUrl) {
     const path = nextUrl.replace(BASE, '')
     const page = await request(path, token)
@@ -88,7 +91,7 @@ function mapPlaylist(p) {
     description: p.description,
     public: p.public,
     collaborative: p.collaborative,
-    trackCount: p.tracks?.total ?? p.tracks?.items?.length ?? 0,
+    trackCount: p.tracks?.total ?? p.items?.total ?? 0,
     owner: { id: p.owner?.id, displayName: p.owner?.display_name },
     images: p.images ?? [],
     externalUrl: p.external_urls?.spotify ?? null,
