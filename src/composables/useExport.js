@@ -7,8 +7,6 @@ export const FIELD_GROUPS = [
       { key: 'id', label: 'ID', default: false },
       { key: 'durationMs', label: 'Duration (ms)', default: true },
       { key: 'explicit', label: 'Explicit', default: false },
-      { key: 'popularity', label: 'Popularity', default: false },
-      { key: 'previewUrl', label: 'Preview URL', default: false },
       { key: 'trackNumber', label: 'Track Number', default: false },
       { key: 'addedAt', label: 'Added At', default: false },
       { key: 'addedBy', label: 'Added By', default: false },

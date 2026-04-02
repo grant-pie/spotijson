@@ -108,8 +108,6 @@ function mapTrack(item) {
     name: t.name,
     durationMs: t.duration_ms,
     explicit: t.explicit,
-    popularity: t.popularity,
-    previewUrl: t.preview_url,
     trackNumber: t.track_number,
     isrc: t.external_ids?.isrc ?? null,
     artists: (t.artists ?? []).map(mapArtist),
