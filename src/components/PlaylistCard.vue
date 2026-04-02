@@ -15,8 +15,10 @@ defineProps({
     <div class="relative w-full aspect-square rounded-lg overflow-hidden bg-zinc-800 shrink-0">
       <img
         v-if="playlist.images.length"
-        :src="playlist.images[0].url"
+        :src="(playlist.images[1] ?? playlist.images[0]).url"
         :alt="playlist.name"
+        loading="lazy"
+        decoding="async"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
       />
       <div v-else class="w-full h-full flex items-center justify-center">
