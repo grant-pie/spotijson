@@ -18,6 +18,7 @@ const playlistsStore = usePlaylistsStore()
 const { fetchTracks } = useSpotifyApi()
 
 const copied = ref(false)
+const drawerOpen = ref(false)
 
 // ─── Field selection state ────────────────────────────────────────────────
 
@@ -122,6 +123,16 @@ async function handleCopy() {
 
         <!-- Actions -->
         <div class="flex items-center gap-2 shrink-0">
+          <!-- Fields toggle — mobile only -->
+          <button
+            class="md:hidden flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
+            @click="drawerOpen = true"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M3 6h18M3 12h12M3 18h6" />
+            </svg>
+            Fields
+          </button>
           <button
             class="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer"
             :disabled="!payload"
@@ -150,12 +161,34 @@ async function handleCopy() {
       </div>
     </header>
 
+    <!-- Backdrop (mobile) -->
+    <transition name="fade">
+      <div
+        v-if="drawerOpen"
+        class="fixed inset-0 z-30 bg-black/60 md:hidden"
+        @click="drawerOpen = false"
+      />
+    </transition>
+
     <!-- Body -->
     <div class="flex flex-1 max-w-7xl mx-auto w-full px-6 py-6 gap-6">
 
-      <!-- Left: field selector -->
-      <aside class="w-64 shrink-0 space-y-4">
-        <p class="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Export fields</p>
+      <!-- Left: field selector (sidebar on md+, drawer on mobile) -->
+      <aside
+        class="fixed inset-y-0 left-0 z-40 w-72 bg-zinc-950 overflow-y-auto px-4 py-6 space-y-4 transition-transform duration-300 md:static md:w-64 md:bg-transparent md:p-0 md:translate-x-0"
+        :class="drawerOpen ? 'translate-x-0' : '-translate-x-full'"
+      >
+        <div class="flex items-center justify-between md:block">
+          <p class="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Export fields</p>
+          <button
+            class="md:hidden text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            @click="drawerOpen = false"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
         <div
           v-for="group in FIELD_GROUPS"
@@ -260,3 +293,14 @@ async function handleCopy() {
     </div>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
