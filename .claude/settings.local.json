@@ -6,7 +6,8 @@
       "Bash(cp -r c:/Users/grant/Workspaces/spotify-temp/. c:/Users/grant/Workspaces/spotify-playlist-to-json/)",
       "Bash(rm -rf c:/Users/grant/Workspaces/spotify-temp)",
       "Bash(npm install:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npm test:*)"
     ]
   }
 }
