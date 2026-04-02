@@ -63,6 +63,62 @@
           playlists or account data. No data is stored on any server — everything stays in your
           browser session.
         </p>
+
+        <h2>Privacy and security</h2>
+        <p>
+          SpotiJSON is built with privacy as a priority. The app uses the OAuth 2.0 PKCE
+          (Proof Key for Code Exchange) flow, which is the recommended authentication method for
+          browser-based applications with no backend server. This means there is no client secret
+          involved and your Spotify password is never exposed to the app. The access token used to
+          communicate with the Spotify API is stored only in your browser's local storage and is
+          never transmitted to any third-party service.
+        </p>
+        <p>
+          SpotiJSON requests only the minimum required Spotify scopes: read access to private
+          playlists and collaborative playlists. It cannot read your playback history, modify your
+          library, follow or unfollow artists, or access your account settings. You can revoke
+          access at any time from the connected apps section of your Spotify account settings.
+        </p>
+
+        <h2>Use cases</h2>
+        <p>
+          There are many practical reasons to export a Spotify playlist as JSON. Developers can
+          use the data to seed a music recommendation engine, build a custom playlist visualiser,
+          or populate a database for analysis. Data analysts can load the JSON into Python with
+          pandas or into a JavaScript environment to study patterns in their listening habits, such
+          as which artists appear most frequently or how playlist length varies over time.
+        </p>
+        <p>
+          DJs and music curators can use SpotiJSON to keep offline records of their sets, share
+          structured track lists with promoters, or migrate data to other platforms. Collectors and
+          archivists can create timestamped snapshots of playlists so they have a permanent record
+          even if tracks are removed from Spotify in the future. Teachers and students working on
+          data science or web development projects can use real playlist data as a convenient,
+          copyright-friendly dataset.
+        </p>
+
+        <h2>Frequently asked questions</h2>
+        <h3>Is SpotiJSON free to use?</h3>
+        <p>
+          Yes. SpotiJSON is completely free and open source. There are no accounts, subscriptions,
+          or usage limits.
+        </p>
+        <h3>Does it work with Spotify Free accounts?</h3>
+        <p>
+          Yes. The app only uses read-only playlist endpoints that are available to all Spotify
+          users regardless of subscription tier.
+        </p>
+        <h3>Can I export collaborative or private playlists?</h3>
+        <p>
+          Yes, as long as the playlist is owned by your account. The app requests the
+          playlist-read-private and playlist-read-collaborative scopes so both private and
+          collaborative playlists appear in your library.
+        </p>
+        <h3>What happens to my data after I log out?</h3>
+        <p>
+          When you log out, all tokens and user data are removed from your browser's local storage
+          immediately. Nothing is retained after the session ends.
+        </p>
       </main>
     </div>
     <script type="module" src="/src/main.js"></script>
