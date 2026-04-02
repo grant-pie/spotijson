@@ -20,7 +20,7 @@ onMounted(() => {
     <div class="max-w-md w-full text-center space-y-8">
       <!-- Logo mark -->
       <div class="flex items-center justify-center gap-3">
-        <a href="/"><img src="/logo.png" alt="SpotiJSON" class="w-64 object-contain" /></a>
+        <RouterLink to="/"><img src="/logo.png" alt="SpotiJSON" class="w-64 object-contain" /></RouterLink>
       </div>
 
       <!-- Card -->
