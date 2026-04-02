@@ -97,7 +97,7 @@ async function handleCopy() {
   <div v-if="playlist" class="min-h-screen bg-black text-white flex flex-col">
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
+    <header class="sticky top-0 z-40 md:z-50 bg-black/90 backdrop-blur border-b border-zinc-800 px-6 py-4">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-4">
         <button
           class="text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0"
@@ -176,7 +176,7 @@ async function handleCopy() {
 
       <!-- Left: field selector (sidebar on md+, drawer on mobile) -->
       <aside
-        class="fixed inset-y-0 left-0 z-40 w-72 bg-zinc-950 overflow-y-auto px-4 py-6 space-y-4 transition-transform duration-300 md:static md:w-64 md:bg-transparent md:p-0 md:translate-x-0"
+        class="fixed inset-y-0 left-0 z-50 w-72 bg-zinc-950 overflow-y-auto px-4 py-6 space-y-4 transition-transform duration-300 md:static md:z-40 md:w-64 md:bg-transparent md:p-0 md:translate-x-0"
         :class="drawerOpen ? 'translate-x-0' : '-translate-x-full'"
       >
         <div class="flex items-center justify-between md:block">
